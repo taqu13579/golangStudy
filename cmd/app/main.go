@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	"golangStudy/pkg"
+	"time"
 )
-
-
 
 func main() {
 	// 変数宣言
@@ -95,27 +94,32 @@ func main() {
 	}
 
 	// 構造体
-	var p1 Person
+	var p1 pkg.Person
 	p1.SetPerson("alice", 25, "male")
 	p1Info := p1.GetPerson()
 	fmt.Println(p1Info)
+	// interface
+	book := pkg.Book{"booktitle01", 1100}
+	var printable pkg.Printable
+	printable = book
+	print(printable)
+
+	// 変更処理
+	go funcA()
+	for i := 0; i < 10; i++ {
+		fmt.Print("M")
+		time.Sleep(time.Second)
+	}
+
 }
 
-
-//　構造体
-type Person struct {
-	// 先頭大文字はパッケージ外からアクセス可、小文字はアクセス不可
-	name string
-	age  int
-	Sex  string
+func print(p pkg.Printable) {
+	p.Print()
 }
 
-func (p *Person) SetPerson(name string, age int, sex string) {
-	p.name = name
-	p.age = age
-	p.Sex = sex
-}
-
-func (p *Person) GetPerson() string {
-	return "name:" + p.name + ", age:" + strconv.Itoa(p.age) + ", sex:" + p.Sex
+func funcA() {
+	for i := 0; i < 10; i++ {
+		fmt.Print("A")
+		time.Sleep(time.Second)
+	}
 }

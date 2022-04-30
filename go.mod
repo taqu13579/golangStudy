@@ -1,3 +1,3 @@
-module main
+module golangStudy
 
 go 1.17
